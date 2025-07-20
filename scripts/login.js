@@ -16,58 +16,34 @@ function sleep(ms) {
 // This ensures all elements are available for selection and manipulation
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Select the login form and the error message display area
-    const loginForm = document.querySelector('form');
+    const loginForm = document.getElementById('login-form');
     const errorDiv = document.getElementById('error-message');
 
-    // Add a submit event listener to the login form
     loginForm.addEventListener('submit', async function(e) {
-        // Prevent the default form submission (which would reload the page)
         e.preventDefault();
-
-        
         const time = getFormattedTime();
-
-        // Collect all the data from the form fields
         const formData = new FormData(this);
         const password = formData.get('password');
-        // Encrypt the password before sending it to the server
-        // (see encrypt.js for the encryption algorithm)
+        // 保留原有加密逻辑
         const encryptedPassword = encrypt(password, time);
-        formData.set('password', encryptedPassword); 
+        formData.set('password', encryptedPassword);
         formData.set('time', time);
-
-        const encryptedPswShow = document.createElement('p');
-        encryptedPswShow.textContent = encryptedPassword;
-        loginForm.appendChild(encryptedPswShow);
-
-        // Simulate a delay (for user experience or testing)
-        await sleep(3000); 
-        
         try {
-            // Send the form data to the server using the fetch API, with credentials included for session support
-            const response = await fetch(this.action, {
+            const response = await fetch('https://api.guitar-guide.org/phps/login.php', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include' // 关键：允许携带 cookie，支持跨域会话
+                credentials: 'include'
             });
-            console.log('Fetch response received'); 
-            // Parse the JSON response from the server
             const data = await response.json();
-            console.log('Processing data:', data); 
             if (data.success) {
-                // If login is successful, redirect the user to the provided URL
                 window.location.href = data.redirect;
             } else {
-                // If login fails, display the error message from the server
                 errorDiv.textContent = data.error;
                 errorDiv.classList.add('show');
             }
         } catch (error) {
-            // Handle network or server errors
-            console.error('Error:', error); 
             errorDiv.textContent = 'An error occurred. Please try again.';
-            errorDiv.style.color = 'red';
+            errorDiv.classList.add('show');
         }
     });
 });
