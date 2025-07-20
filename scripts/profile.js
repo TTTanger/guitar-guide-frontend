@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
      * Fetch and display the user profile information from the server
      */
-    fetch('https://guitar-guide-backend.onrender.com/phps/profile.php?action=getUserProfile')
+    fetch('https://api.guitar-guide.org/phps/profile.php?action=getUserProfile')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
      * Handle password update logic when the user clicks the update button
      */
-            if (data.success) {
-                credentials: 'include'
+    // 密码修改按钮事件监听
+    uploadPasswordButton.addEventListener('click', () => {
         if (!currentPassword.value || !newPassword.value) {
             alert('Please fill in both password fields');
             return;
@@ -73,9 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         langController.updateContent();
 
         // Send the password update request to the server
-        fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
+        fetch('https://api.guitar-guide.org/phps/profile.php', {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(data => {
@@ -91,17 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             console.error('Error:', error);
-        fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include'
         })
         .finally(() => {
             uploadPasswordButton.disabled = false;
             uploadPasswordButton.setAttribute('data-translate', 'profile.save');
             langController.updateContent();
         });
-    })
+    });
 /*--------------------------------------------------------------------------*/
     /*
      * Handle avatar upload logic when the user clicks the upload button

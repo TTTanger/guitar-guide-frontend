@@ -111,7 +111,7 @@ class LanguageController {
     }
 
     async loadDbTranslations() {
-        const response = await fetch(`https://guitar-guide-backend.onrender.com/phps/lang.php`);
+        const response = await fetch(`https://api.guitar-guide.org/phps/lang.php`);
         const dbTranslations = await response.json();
         if (response.ok) {
             this.dbTranslations = dbTranslations;

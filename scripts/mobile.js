@@ -41,7 +41,7 @@ function createMobileUserProfile() {
     const nav = document.querySelector('nav');
     
     
-    fetch('https://guitar-guide-backend.onrender.com/phps/auth.php')
+    fetch('https://api.guitar-guide.org/phps/auth.php')
         .then(response => response.json())
         .then(data => {
             if (data.loggedin) {
