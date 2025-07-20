@@ -283,7 +283,7 @@ function showResult(quizContainer, score, totalQuestions) {
     const formData = new FormData();
     formData.append('score', score);
 
-    fetch('../phps/quiz.php', {
+    fetch('https://guitar-guide-backend.onrender.com/phps/quiz.php', {
         method: 'POST',
         body: formData
     })

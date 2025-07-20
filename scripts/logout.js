@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); 
         
         // Send a request to the server to log out the user
-        fetch('../phps/logout.php')
+        fetch('https://guitar-guide-backend.onrender.com/phps/logout.php')
             .then(response => response.json()) 
             .then(data => {
                 console.log('Response:', data);  

@@ -41,7 +41,7 @@ function createMobileUserProfile() {
     const nav = document.querySelector('nav');
     
     
-    fetch('../phps/auth.php')
+    fetch('https://guitar-guide-backend.onrender.com/phps/auth.php')
         .then(response => response.json())
         .then(data => {
             if (data.loggedin) {
@@ -68,7 +68,7 @@ function createMobileUserProfile() {
                 logoutBtn.addEventListener('click', function(e) {
                     e.preventDefault(); 
                     // Send a request to the server to log out the user
-                    fetch('../phps/logout.php')
+                    fetch('https://guitar-guide-backend.onrender.com/phps/logout.php')
                         .then(response => response.json()) 
                         .then(data => {
                             console.log('Response:', data);  

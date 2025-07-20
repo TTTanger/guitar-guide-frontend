@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
      * Fetch and display the user profile information from the server
      */
-    fetch('../phps/profile.php?action=getUserProfile')
+    fetch('https://guitar-guide-backend.onrender.com/phps/profile.php?action=getUserProfile')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langController.updateContent();
 
         // Send the password update request to the server
-        fetch('../phps/profile.php', {
+        fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
             method: 'POST',
             body: formData
         })
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         uploadAvatarButton.setAttribute('data-translate', 'profile.uploading');
         langController.updateContent();
 
-        fetch('../phps/profile.php', {
+        fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
             method: 'POST',
             body: formData
         })
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert('Failed to upload avatar: ' + data.error);
                 // If upload fails, reload the current avatar from the server
-                fetch('../phps/profile.php?action=getUserProfile')
+                fetch('https://guitar-guide-backend.onrender.com/phps/profile.php?action=getUserProfile')
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
