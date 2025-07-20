@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
      * Handle password update logic when the user clicks the update button
      */
-    uploadPasswordButton.addEventListener('click', () => {
+            if (data.success) {
+                credentials: 'include'
         if (!currentPassword.value || !newPassword.value) {
             alert('Please fill in both password fields');
             return;
@@ -90,7 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Failed to update password. Please try again.');
+        fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
         })
         .finally(() => {
             uploadPasswordButton.disabled = false;
@@ -120,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch('https://guitar-guide-backend.onrender.com/phps/profile.php', {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(data => {
@@ -130,13 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert('Failed to upload avatar: ' + data.error);
                 // If upload fails, reload the current avatar from the server
-                fetch('https://guitar-guide-backend.onrender.com/phps/profile.php?action=getUserProfile')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            profileAvatar.src = data.user_avatar;
-                        }
-                    });
+                fetch('https://guitar-guide-backend.onrender.com/phps/profile.php?action=getUserProfile', {
+                    credentials: 'include'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        profileAvatar.src = data.user_avatar;
+                    }
+                });
             }
         })
         .catch(error => {

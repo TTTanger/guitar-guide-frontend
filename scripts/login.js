@@ -45,10 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         await sleep(3000); 
         
         try {
-            // Send the form data to the server using the fetch API
+            // Send the form data to the server using the fetch API, with credentials included for session support
             const response = await fetch(this.action, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include' // 关键：允许携带 cookie，支持跨域会话
             });
             console.log('Fetch response received'); 
             // Parse the JSON response from the server
