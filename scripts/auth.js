@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
      * Check user session by making a request to the backend auth.php
      * This determines if the user is logged in or not.
      */
-    fetch('https://guitar-guide-backend.onrender.com/phps/auth.php')
+    fetch('https://guitar-guide-backend.onrender.com/phps/auth.php', {
+        credentials: 'include'
+    })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
             // If not logged in, redirect to login page

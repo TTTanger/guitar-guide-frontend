@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Send the registration data to the server using fetch API
         fetch(this.action, {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
             .then(response => {
                 console.log('Fetch response received');

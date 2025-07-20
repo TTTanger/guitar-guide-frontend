@@ -285,7 +285,8 @@ function showResult(quizContainer, score, totalQuestions) {
 
     fetch('https://guitar-guide-backend.onrender.com/phps/quiz.php', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
