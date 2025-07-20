@@ -23,11 +23,17 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const time = getFormattedTime();
         const formData = new FormData(this);
+        const username = formData.get('username');
         const password = formData.get('password');
         // 保留原有加密逻辑
         const encryptedPassword = encrypt(password, time);
+        formData.set('username', username); // 确保 username 字段存在
         formData.set('password', encryptedPassword);
         formData.set('time', time);
+        // 调试输出所有字段
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
         try {
             const response = await fetch('https://api.guitar-guide.org/phps/login.php', {
                 method: 'POST',
